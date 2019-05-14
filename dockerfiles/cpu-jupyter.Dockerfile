@@ -9,7 +9,7 @@ ARG PIP=pip${_PY_SUFFIX}
 
 ENV LANG C.UTF-8
 
-ADD . /develop
+COPY starterfile.py /tf/starterfile.py
 
 RUN apt-get update -q
 RUN apt-get install -y ${PYTHON} ${PYTHON}-pip git
@@ -45,9 +45,9 @@ RUN mkdir /.local && chmod a+rwx /.local
 
 RUN ${PYTHON} --version
 
-WORKDIR /src/
+WORKDIR /tf/
 EXPOSE 8888
 
 RUN ${PYTHON} -m ipykernel.kernelspec
 
-CMD ["bash", "-c", "source /etc/bash.bashrc && jupyter notebook --notebook-dir=/src/ --ip 0.0.0.0 --no-browser --allow-root"]
+CMD ["bash", "-c", "source /etc/bash.bashrc && jupyter notebook --notebook-dir=/tf/ --ip 0.0.0.0 --no-browser --allow-root"]
