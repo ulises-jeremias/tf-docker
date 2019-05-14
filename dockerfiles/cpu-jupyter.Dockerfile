@@ -11,8 +11,6 @@ ENV LANG C.UTF-8
 
 ADD . /develop
 
-COPY notebooks /src/notebooks
-
 RUN apt-get update -q
 RUN apt-get install -y ${PYTHON} ${PYTHON}-pip git
 RUN apt-get clean

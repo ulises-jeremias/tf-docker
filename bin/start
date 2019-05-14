@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+. scripts/flags/declares.sh
+
+variables["-t"]="tag"
+variables["-n"]="name"
+
+. scripts/flags/arguments.sh
+
+tag=${tag:-"cpu-jupyter"}
+name=${name:-"tf"}
+
+echo "Creating $name container with tag $tag" 
+
+docker build --rm -f dockerfiles/$tag.Dockerfile -t $name:$tag . && \
+docker run --rm -u $(id -u):$(id -g) -p 6006:6006 -p 8888:8888 $name:$tag
